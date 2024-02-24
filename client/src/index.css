@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    .main-container {
+        @apply max-w-[1200px] mx-auto w-full mt-3 p-3 rounded-sm
+    }
+    .custom-border-top-style {
+        height: 3px;
+        width: 100%;
+        background-position: -30px 0;
+        background-size: 116px 3px;
+        background-image: repeating-linear-gradient(
+          45deg,
+          #6fa6d6,
+          #6fa6d6 33px,
+          transparent 0,
+          transparent 41px,
+          #f18d9b 0,
+          #f18d9b 74px,
+          transparent 0,
+          transparent 82px
+        );
+      }
+      
+  }
+  
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
