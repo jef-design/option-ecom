@@ -3,17 +3,30 @@ const Carts = require("../models/cartsModel");
 const cloudinary = require("../utils/cloudinary");
 
 const getAllProducts = async (req, res) => {
-    const category = req.query;
+    const { category, sort } = req.query;
+
+    console.log(req.query);
+
     try {
-        if (category.category === "All") {
-            const products = await Products.find({}).sort({createdAt: -1});
-            res.status(200).json({message: "get all products", products});
-        } else {
-            const products = await Products.find(category);
-            res.status(200).json({message: "get filtered products", products});
+        let products;
+
+        // Determine the sort condition based on the sort query parameter
+        let sortCondition = { createdAt: -1 }; // default sort condition
+        if (sort === 'price lowest to highest') {
+            sortCondition = { price: 1 }; // sort by price in ascending order
         }
+        if (sort === 'price highest to lowest') {
+            sortCondition = { price: -1 }; // sort by price in descending order
+        }
+        if (category === "all") {
+            products = await Products.find({}).sort(sortCondition);
+        } else {
+            products = await Products.find({ category }).sort(sortCondition);
+        }
+
+        res.status(200).json({ message: "get products", products });
     } catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(400).json({ message: error.message });
     }
 };
 const getProduct = async (req, res) => {
@@ -107,7 +120,7 @@ const addToCart = async (req, res) => {
 //   }
 // }
 const getCart = async (req, res) => {
-    const userID = req.user._id
+    const userID = req?.user?._id
 
     try {
         const products = await Carts.findOne({customer_id: userID}).sort({createdAt: -1}).populate({
@@ -148,13 +161,13 @@ const deleteCart = async (req, res) => {
 
 const addPoductReview = async (req, res) => {
 
-    const {userId, star, comment, product_id} = req.body
+    const {userId, star, order_id, comment, product_id} = req.body
     console.log(req.body)
     try {
         const review = await Products.findByIdAndUpdate(
             {_id: product_id},
             {
-                $push: { review: {userId: userId, star: star, comment: comment} }
+                $push: { review: {userId: userId,orderId: order_id, star: star, comment: comment} }
             },
             { new: true }
         )

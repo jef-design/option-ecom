@@ -143,10 +143,10 @@ const AdminAddProduct = () => {
                             <option value="default" disabled>
                                 Select Category
                             </option>
-                            <option value="Tshirt">T-Shirt</option>
-                            <option value="Shoes">Shoes</option>
-                            <option value="Pants">Pants</option>
-                            <option value="Shorts">Shorts</option>
+                            <option value="tshirt">T-Shirt</option>
+                            <option value="shoes">Shoes</option>
+                            <option value="pants">Pants</option>
+                            <option value="shorts">Shorts</option>
                         </select>
                     </div>
                     <div>

@@ -25,10 +25,10 @@ import AdminOrders from "./admin/pages/AdminOrders"
 function App() {
   const {admin, user} = useStore()
   console.log(user)
-  const {data: orderData} = useQuery({
-    queryKey: ["getorder"],
-    queryFn: () => axiosInstance.get("/api/order/check-out").then(res => res.data.order),
-});
+//   const {data: orderData} = useQuery({
+//     queryKey: ["getorder"],
+//     queryFn: () => axiosInstance.get("/api/order/check-out").then(res => res.data.order),
+// });
 
 const router = createBrowserRouter([
   {

@@ -1,13 +1,11 @@
-import React, {useId} from "react";
-import {useSearchParams} from "react-router-dom";
-import {useQuery} from "@tanstack/react-query";
-import axiosInstance from "../services/axiosInstance";
+import {useId} from "react";
 
 interface Props {
     filterHandler: any;
 }
 
 const Filter = ({filterHandler}: Props) => {
+
     const id0 = useId();
     const id1 = useId();
     const id2 = useId();
@@ -25,11 +23,13 @@ const Filter = ({filterHandler}: Props) => {
                     <div className="flex gap-3">
                         <input
                             className="cursor-pointer"
-                            onClick={() => filterHandler("All")}
+                            onClick={() => filterHandler("all")}
                             type="radio"
                             id={id0}
                             name="fav_language"
                             value="All"
+                            defaultChecked
+                          
                         />
                         <label className="cursor-pointer" htmlFor={id0}>
                             All
@@ -38,7 +38,7 @@ const Filter = ({filterHandler}: Props) => {
                     <div className="flex gap-3">
                         <input
                             className="cursor-pointer"
-                            onClick={() => filterHandler("Tshirt")}
+                            onClick={() => filterHandler("tshirt")}
                             type="radio"
                             id={id1}
                             name="fav_language"
@@ -51,7 +51,7 @@ const Filter = ({filterHandler}: Props) => {
                     <div className="flex gap-3">
                         <input
                             className="cursor-pointer"
-                            onClick={() => filterHandler("Pants")}
+                            onClick={() => filterHandler("pants")}
                             type="radio"
                             id={id2}
                             name="fav_language"
@@ -64,7 +64,7 @@ const Filter = ({filterHandler}: Props) => {
                     <div className="flex gap-3">
                         <input
                             className="cursor-pointer"
-                            onClick={() => filterHandler("Shoes")}
+                            onClick={() => filterHandler("shoes")}
                             type="radio"
                             id={id3}
                             name="fav_language"
@@ -77,7 +77,7 @@ const Filter = ({filterHandler}: Props) => {
                     <div className="flex gap-3">
                         <input
                             className="cursor-pointer"
-                            onClick={() => filterHandler("Shorts")}
+                            onClick={() => filterHandler("shorts")}
                             type="radio"
                             id={id4}
                             name="fav_language"

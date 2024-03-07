@@ -25,7 +25,7 @@ const OrderSuccess = () => {
         <ConfettiExplosion
             force={0.8}
             duration={5000}
-            particleCount={180}
+            particleCount={140}
             width={1600}
           />
         </div>

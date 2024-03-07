@@ -83,22 +83,24 @@ const getCheckOut = async (req, res) => {
 
 const getCheckOutProcess = async (req, res) => {
     const userID = req.user._id
-    console.log(userID)
    
     try {
         const order = await Order.find({customer_id: userID}).populate({
             path: "items.product_id",
-            select: "product_name price images",
+            select: "product_name price images review",
         }).populate({
             path: 'customer_id',
             select: 'name'
         }).sort({createdAt: -1})
         res.status(200).json({message: "all purchaces", order});
-    } catch (error) {}
+    } catch (error) {
+
+    }
 };
 
 const placeOrder = async (req, res) => {
    
+    const userID = req.user._id
     const {full_Name, Phone_number, Address,order_id, items, payment_method, status} = req.body;
     try {
         const findOrder = await Order.findOne({order_id: order_id, status: "pending"});
@@ -116,7 +118,7 @@ const placeOrder = async (req, res) => {
                 {new: true}
             );
             await Carts.findOneAndUpdate(
-              { customer_id: "652cc7f8334fdaf4cee65eec" },
+              { customer_id: userID },
               { $pull: { items: { _id: { $in: items.map(item => item._id) } } } }
           );
             res.status(200).json({message: "order details", order});
@@ -143,8 +145,10 @@ const cancelOrder = async (req, res) => {
 const getOrder = async (req, res) => {
     console.log(req.params)
     const item_id = req.params.id
+    
 
     try {
+      
      const order = await Order.findOne({'items._id':item_id},
      { 'items.$': 1 }).populate({
         path: "items.product_id",

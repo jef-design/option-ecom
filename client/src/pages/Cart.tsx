@@ -6,7 +6,7 @@ import axiosInstance from "../services/axiosInstance";
 import {RotatingLines} from "react-loader-spinner";
 import EmptyCart from "./EmptyCart";
 import {useNavigate, useParams} from "react-router-dom";
-import {ToastContainer, toast} from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import useStore from "../services/useStore";
 import { TailSpin } from "react-loader-spinner";
 
@@ -21,19 +21,9 @@ const Cart = () => {
 
     const {data: cartsData} = useQuery({
         queryKey: ["getcart"],
-        queryFn: () => axiosInstance.get("/api/products/cart").then(res => res.data.products),
+        queryFn: () => axiosInstance.get("/api/products/cart").then(res => res.data),
     });
-    console.log(cartsData);
-
-    // const totalSum = useMemo(() =>
-    //     Object.entries(checked).reduce(
-    //       (accumulator, [subscriberId, value]) => value ? accumulator + cartsData.find(
-    //               (subscriber: any) => subscriber._id + "" === subscriberId).product_id.price : accumulator,0
-    //     ),
-
-    //   [checked]
-
-    // );
+    console.log(cartsData)
     const totalSum = useMemo(
         () =>
             Object.entries(checked).reduce((accumulator, [cartId, value]) => {
@@ -111,7 +101,7 @@ const Cart = () => {
         <div>
             <Header />
             <main className="main-container">
-                {cartsData?.items.length === 0 ? (
+                {(cartsData?.items.length === 0 || !cartsData) ? (
                     <EmptyCart />
                 ) : (
                     <div className="flex flex-col gap-3 relative">

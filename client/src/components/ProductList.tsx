@@ -1,10 +1,10 @@
-import {useState} from "react";
+import {useEffect} from "react";
 import {useQuery} from "@tanstack/react-query";
 import axiosInstance from "../services/axiosInstance";
 import ProductCard from "./ProductCard";
 import React from "react";
 import Filter from "./Filter";
-import {useSearchParams, useLocation} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
 import Sort from "./Sort";
 import ProductCardPlaceHolder from "./ProductCardPlaceHolder";
 
@@ -12,26 +12,38 @@ const ProductList = () => {
    
     const [searchParams, setSearchParams] = useSearchParams();
     const activeFilter = searchParams.get("category");
-    const [selectedOption, setSelectedOption] = useState("");
-    const [productData, setProductData] = useState([]);
-
-    const filterHandler = (categ: string) => {
-        setSearchParams({category: categ});
-    };
+    const sortFilter = searchParams.get("sort");
+    // const [selectedOption, setSelectedOption] = useState<string>("Featured");
+    // const [productData, setProductData] = useState([]);
 
     const {data: ProductsData, isLoading} = useQuery({
-        queryKey: ["products", activeFilter],
+        queryKey: ["products", activeFilter,sortFilter],
         queryFn: () =>
             axiosInstance
-                .get(`/api/products/search?category=${activeFilter ? activeFilter : "All"}`)
+                .get(`/api/products/search?category=${activeFilter ? activeFilter.toLowerCase() : "all"}&sort=${sortFilter ? sortFilter.toLowerCase() : "featured"}`)
                 .then(res => res.data),
     });
 
     const options = ["Featured", "New Release", "Price lowest to highest", "Price highest to lowest"];
     
+    useEffect(() => {
+        setSearchParams({category: 'all', sort: 'featured'});
+    }, [])
+    
+    //category
+    const filterHandler = (categ: string) => {
+        const currentSort:any = searchParams.get("sort");
+        setSearchParams({category: categ, sort: currentSort});
+    };
 
-    const handleSelect = (option: any) => {
-        setSelectedOption(option);
+
+    //sort
+    const handleSelect = (option: string) => {
+        // setSelectedOption(option);
+        const currentFilter:any = searchParams.get("category");
+        setSearchParams({category: currentFilter,sort: option.toLowerCase()});
+        
+        
     };
 
     return (

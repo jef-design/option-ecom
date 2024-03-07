@@ -19,7 +19,7 @@ const Reviews = ({reviews}: Props) => {
     return (
         <div className="mt-5">
             <h2 className="font-bold text-xl mb-3">
-                ({reviews.length})Reviews <span className="text-gray-400">(No reviews yet)</span>
+                ({reviews.length})Reviews {!reviews.length && <span className="text-gray-400">(No reviews yet)</span>}
             </h2>
             {reviews.map((review: any, index: any) => {
                 return (

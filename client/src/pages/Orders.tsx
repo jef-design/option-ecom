@@ -1,4 +1,3 @@
-import React, {useEffect} from "react";
 import Header from "../admin/layout/Header";
 import {useQuery} from "@tanstack/react-query";
 import axiosInstance from "../services/axiosInstance";
@@ -9,7 +8,7 @@ const Orders = () => {
         queryKey: ["getorderpocess"],
         queryFn: () => axiosInstance.get("/api/order/orders").then(res => res.data.order),
     });
-
+    console.log(orderData)
     const options = {maximumFractionDigits: 2};
     const formattedNumber = (num: any) => {
         return Intl.NumberFormat("en-US", options).format(num);
@@ -40,7 +39,7 @@ const Orders = () => {
                             <div>
                                 <div>
                                     {order?.items?.map((item: any, i: any) => {
-                                        const {images} = item.product_id;
+                                        const {images, review} = item.product_id;
 
                                         return (
                                             <div className="grid grid-cols-2  mb-2 shadow-md border p-4" key={i}>
@@ -68,7 +67,8 @@ const Orders = () => {
                                                             className="p-2 bg-black text-white rounded-md inline-block mt-2"
                                                             to={`/review/${item._id}`}
                                                         >
-                                                            Add Review
+                                                            
+                                                            {!review.length ? 'Add Review' : 'View Review'}
                                                         </Link>
                                                     </div>
                                                 </div>

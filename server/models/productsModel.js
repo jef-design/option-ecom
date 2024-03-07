@@ -44,10 +44,10 @@ const productSchema = new mongoose.Schema({
             required: false,
             ref: 'Admin'
         },
-        // orderId: {
-        //     type: Number,
-        //     required: false,
-        // },
+        orderId: {
+            type: Number,
+            required: false,
+        },
         star: {
             type: Number,
             required: false,

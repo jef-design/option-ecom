@@ -20,6 +20,11 @@ const adminSchema = new Schema({
 })
 
 adminSchema.statics.signUp = async function(name, email, password){
+    const existEmail = await this.findOne({email})
+
+    if(existEmail){
+        throw Error('Email already in use')
+    }
     if(!name || !email || !password){
         throw Error('All fiels must be filled')
     }

@@ -3,7 +3,7 @@ import Header from "../admin/layout/Header";
 import Rating from "@mui/material/Rating";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import axiosInstance from "../services/axiosInstance";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import useStore from "../services/useStore";
 
 const ReviewStar = () => {
@@ -15,6 +15,7 @@ const ReviewStar = () => {
     console.log(starRating)
     const [comment, setComment] = useState<string | null>("");
     const {user} = useStore();
+    const navigate = useNavigate()
 
     const reviewHandler = async (reviewData: any) => {
         const response = await axiosInstance.post(`/api/products/review/${params.orderId}`, reviewData);
@@ -22,9 +23,12 @@ const ReviewStar = () => {
         return response.data;
     };
 
-    const {mutate} = useMutation({
+    const {mutate, isLoading} = useMutation({
         mutationKey: ["addreview"],
         mutationFn: reviewHandler,
+        onSuccess: () => {
+            navigate('/orders')
+        }
     });
 
     const reviewSubmit = (e: React.SyntheticEvent, product_id: any): void => {
@@ -60,15 +64,6 @@ const ReviewStar = () => {
                                             setStarRating(newValue);
                                         }}
                                     />
-                                     {/* value={starRating[item?.product_id._id] || 1}  */}
-                                    {/* <Rating
-                                        name="simple-controlled"
-                                        value={starRating || 1} // Use the rating for this specific item
-                                        onChange={(event, newValue) => {
-                                            // Update the rating for this specific item
-                                            setStarRating(prevRatings => ({...prevRatings, [item.product_id._id]: newValue}));
-                                        }}
-                                    /> */}
                                     <input
                                         type="text"
                                         className="outline-none border rounded-md p-4 w-full my-3"
@@ -80,7 +75,7 @@ const ReviewStar = () => {
                                             onClick={(e: React.SyntheticEvent) => reviewSubmit(e, item.product_id._id)}
                                             className="outline-none bg-black text-white rounded-md px-3 py-1"
                                         >
-                                            Submit review
+                                            {isLoading ? 'Processing' : 'Submit review'}
                                         </button>
                                     </div>
                                 </form>

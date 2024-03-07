@@ -9,7 +9,7 @@ import { PlusSmallIcon } from "@heroicons/react/24/outline";
 const AdminProducts = () => {
     const {data: productsData} = useQuery({
         queryKey: ["productslist"],
-        queryFn: () => axiosInstance.get("/api/products/search").then(res => res.data),
+        queryFn: () => axiosInstance.get("/api/products/search?category=all").then(res => res.data),
     });
     console.log(productsData);
     return (
