@@ -1,21 +1,22 @@
 import useStore from "../../services/useStore";
 import {Link} from "react-router-dom";
-import {ShoppingBagIcon} from "@heroicons/react/24/outline";
-import {useQuery} from "@tanstack/react-query";
+import {ShoppingBagIcon, UserCircleIcon} from "@heroicons/react/24/outline";
+import {useQuery, QueryClient, useQueryClient} from "@tanstack/react-query";
 import axiosInstance from "../../services/axiosInstance";
-
+import {googleLogout} from "@react-oauth/google";
 const Header = () => {
     const {admin, setLogOut, user, cart} = useStore();
-
+    const queryCache = useQueryClient()
     const {data: cartsData} = useQuery({
         queryKey: ["getcart"],
         queryFn: () => axiosInstance.get("/api/products/cart").then((res) => res.data.products),
-        enabled: user || admin ? true : false
+        enabled: user || admin ? true : false,
     });
-   
 
     const logOutHandler = () => {
         axiosInstance.post(`/api/admin/logout`).then((res) => res.data);
+        googleLogout();
+        queryCache.removeQueries()
         setLogOut();
     };
 
@@ -27,9 +28,13 @@ const Header = () => {
                 </Link>
 
                 <div className='flex items-center gap-4'>
-                    <Link to='/orders'>
-                        <span>{user?.name}</span>
-                    </Link>
+                    {user && <div className="flex items-center gap-2">
+                        {!user?.picture ? <UserCircleIcon className='h-7 w-7 text-gray-500' /> : <img className='h-7 w-7 rounded-full' src={user?.picture} alt='picture' />}
+
+                        <Link to='/orders'>
+                            <span>{user?.email}</span>
+                        </Link>
+                    </div>}
                     <Link to={`/product/cart/${cartsData?._id}`} className='flex items-center gap-1'>
                         <ShoppingBagIcon className='h-7 w-7 text-gray-500' />
                         <span className='font-bold'>{user ? cartsData?.items?.length : cart.length}</span>

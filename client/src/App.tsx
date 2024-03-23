@@ -29,7 +29,12 @@ function App() {
 //     queryKey: ["getorder"],
 //     queryFn: () => axiosInstance.get("/api/order/check-out").then(res => res.data.order),
 // });
-
+const {data: cartsData} = useQuery({
+  queryKey: ["getcart"],
+  queryFn: () => axiosInstance.get("/api/products/cart").then((res) => res.data.products),
+  enabled: user || admin ? true : false,
+});
+console.log(cartsData)
 const router = createBrowserRouter([
   {
     path: "/admin",
@@ -89,7 +94,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/order-success",
-        element: <OrderSuccess/>
+        element: !cartsData?.items?.length ? <Navigate to="/"/> : <OrderSuccess/>
        
       },
       {

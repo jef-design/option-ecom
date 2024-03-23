@@ -14,10 +14,45 @@ const generateToken = (res, _id)=> {
       return token
 } 
 
+const GoogleSignUp = async (req, res) => {
+    const {name, email, picture} = req.body
+
+    try {
+        const existEmail = await adminModel.findOne({email})
+        
+        if(existEmail){
+            throw Error('Email already exist')
+        }
+        const user = await adminModel.create({
+            name, email, picture
+        })
+        generateToken(res, user._id)
+        res.status(200).json({message: 'user sign up', user})
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+}
+const GoogleSignIn = async (req, res) => {
+    const {email} = req.body
+    console.log(req.body)
+    try {
+        const existEmail = await adminModel.findOne({email})
+        
+        if(!existEmail){
+            throw Error('Sign up this email first')
+        }
+        
+        generateToken(res, existEmail._id)
+        res.status(200).json({message: 'user sign up', existEmail})
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+}
 
 const adminSignUp = async (req, res) => {
     
     const {name, email, password} = req.body
+    console.log(req.body)
     try {
         const admin = await adminModel.signUp(name, email, password)
         const token = generateToken(res, admin._id)
@@ -53,4 +88,4 @@ const adminLogOut = async (req, res) => {
       res.status(200).json({ message: 'user logged out'});
 }
 
-module.exports = {adminSignUp,adminLogin, adminLogOut}
+module.exports = {GoogleSignUp,GoogleSignIn,adminSignUp,adminLogin, adminLogOut}

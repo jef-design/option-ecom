@@ -11,9 +11,13 @@ const adminSchema = new Schema({
         type: String,
         required: true
     },
-    password: {
+    picture: {
         type: String,
         required: true
+    },
+    password: {
+        type: String,
+        required:true
     }
 },{
     timestamps: true
@@ -50,7 +54,9 @@ adminSchema.statics.signIn = async function(email, password){
     if(!admin){
         throw Error("Invalid Credentials")
     }
-
+    if(admin){
+        throw Error('Sign in your account with Google')
+    }
     const match = await bcrypt.compare(password, admin.password)
 
     if(!match){
