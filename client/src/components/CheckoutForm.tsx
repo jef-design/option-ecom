@@ -11,7 +11,7 @@ export default function CheckoutForm({orderData,placeOrderHandler}: Props) {
   const stripe = useStripe();
   const elements = useElements();
   const {total_amount} = orderData
-  const [message, setMessage] = useState(null);
+  const [message] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleSubmit = async (e: React.SyntheticEvent) => {

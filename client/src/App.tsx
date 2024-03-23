@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider, Navigate, useLocation} from "react-router-dom"
+import { createBrowserRouter, RouterProvider, Navigate} from "react-router-dom"
 import AdminAddProduct from "./admin/pages/AdminAddProduct"
 import Dashboard from "./admin/dashboard"
 import AdminHome from "./admin/pages/AdminHome"

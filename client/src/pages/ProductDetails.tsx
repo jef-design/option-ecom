@@ -141,7 +141,7 @@ const ProductDetails = () => {
                             </div>
                         </div>
                         <div className="grid grid-cols-3 gap-2 my-5 ">
-                            <button onClick={(e)=> addCartHandler} className=" bg-black flex justify-center text-white rounded-sm w-full text-2xl font-bold p-2 col-span-2 uppercase">
+                            <button onClick={()=> addCartHandler} className=" bg-black flex justify-center text-white rounded-sm w-full text-2xl font-bold p-2 col-span-2 uppercase">
                                {cartLoader ? (<TailSpin
                                                 height="35"
                                                 width="35"

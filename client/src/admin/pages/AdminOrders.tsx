@@ -3,7 +3,7 @@ import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import axiosInstance from "../../services/axiosInstance";
 
 const AdminOrders = () => {
-    const [deliveryStatus, setDeliveryStatus] = useState<string>("");
+    const [deliveryStatus] = useState<string>("");
     const queryClient = useQueryClient();
     console.log(deliveryStatus);
 

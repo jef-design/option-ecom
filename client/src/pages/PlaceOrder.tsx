@@ -5,7 +5,6 @@ import {loadStripe} from "@stripe/stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
 import {useMutation} from "@tanstack/react-query";
 import axiosInstance from "../services/axiosInstance";
-import DeliveryAddress from "../components/DeliveryAddress";
 import {useQuery} from "@tanstack/react-query";
 import {BanknotesIcon, CreditCardIcon} from "@heroicons/react/20/solid";
 import {useNavigate} from "react-router-dom";
@@ -32,7 +31,7 @@ const PlaceOrder = () => {
         return response.data;
     };
 
-    const {mutate, isError, isLoading} = useMutation({
+    const {mutate} = useMutation({
         mutationFn: paymentHandler,
         mutationKey: ["payment"],
         onSuccess: paymentInfo => {
@@ -52,14 +51,14 @@ const PlaceOrder = () => {
     });
 
     /// cancel order
-    const {mutate: mutateCancelOrder} = useMutation({
-        mutationFn: (cancelOrder: any) =>
-            axiosInstance.post("/api/order/cancel-order", cancelOrder).then(res => res.data),
-        mutationKey: ["cancel-order"],
-        onSuccess: cancelOrder => {
-            console.log(cancelOrder);
-        },
-    });
+    // const {mutate: mutateCancelOrder} = useMutation({
+    //     mutationFn: (cancelOrder: any) =>
+    //         axiosInstance.post("/api/order/cancel-order", cancelOrder).then(res => res.data),
+    //     mutationKey: ["cancel-order"],
+    //     onSuccess: cancelOrder => {
+    //         console.log(cancelOrder);
+    //     },
+    // });
 
     const options: any = {
         clientSecret: clientSecret,

@@ -1,4 +1,3 @@
-import React from "react";
 import { MapPinIcon } from "@heroicons/react/24/outline";
 
 
@@ -17,9 +16,9 @@ const DeliveryAddress = () => {
                             Full Name
                         </label>
                         <input
-                            onChange={e => {
-                                // setName(e.target.value);
-                            }}
+                            // onChange={e => {
+                            //     // setName(e.target.value);
+                            // }}
                             className="block border p-1 w-full"
                             type="text"
                         />
@@ -29,9 +28,9 @@ const DeliveryAddress = () => {
                             Phone Number
                         </label>
                         <input
-                            onChange={e => {
-                                // setName(e.target.value);
-                            }}
+                            // onChange={e => {
+                            //     // setName(e.target.value);
+                            // }}
                             className="block border p-1 w-full"
                             type="text"
                         />
@@ -41,9 +40,9 @@ const DeliveryAddress = () => {
                             Address
                         </label>
                         <input
-                            onChange={e => {
-                                // setName(e.target.value);
-                            }}
+                            // onChange={e => {
+                            //     // setName(e.target.value);
+                            // }}
                             className="block border p-1 w-full"
                             type="text"
                         />

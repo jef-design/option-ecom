@@ -7,8 +7,8 @@ import axios, {AxiosError} from "axios";
 import useStore from "../services/useStore";
 import Header from "../admin/layout/Header";
 import axiosInstance from "../services/axiosInstance";
-import {useGoogleLogin, googleLogout} from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";
+import {useGoogleLogin} from "@react-oauth/google";
+
 
 // Define a type for the error response
 type ErrorResponse = AxiosError<any>;
@@ -51,9 +51,9 @@ const UserSignIn = () => {
         const User = {email, password};
         mutate(User);
     };
-    const logouthandler = () => {
-        googleLogout();
-    };
+    // const logouthandler = () => {
+    //     googleLogout();
+    // };
     const {mutate: mutateGoogle} = useMutation({
         mutationFn: (userInfo: {email: string}) =>
             axiosInstance.post("/api/admin/oauth/signin", userInfo).then((res) => res.data),

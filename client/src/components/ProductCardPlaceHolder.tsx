@@ -1,4 +1,3 @@
-import React from "react";
 import SkeletonPlaceholder from "./SkeletonPlaceholder";
 const ProductCardPlaceHolder = () => {
     return (

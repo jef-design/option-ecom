@@ -1,25 +1,25 @@
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
 import {EyeSlashIcon, EyeIcon} from "@heroicons/react/24/outline";
 import {TailSpin} from "react-loader-spinner";
 import {AxiosError} from "axios";
 import axios from "axios";
-import {GoogleLogin, useGoogleLogin, googleLogout} from "@react-oauth/google";
+import {useGoogleLogin} from "@react-oauth/google";
 
 import axiosInstance from "../services/axiosInstance";
 import Header from "../admin/layout/Header";
-import {jwtDecode} from "jwt-decode";
+
 import useStore from "../services/useStore";
 type ErrorResponse = AxiosError<any>;
 
 type ErrorMessage = {
     message: string;
 };
-interface TokenResponse {
-    access_token: string;
-    // Add other properties if your token response has them
-}
+// interface TokenResponse {
+//     access_token: string;
+//     // Add other properties if your token response has them
+// }
 
 const UserSignUp = () => {
     // const [username, setUsername] = useState('')
@@ -30,7 +30,7 @@ const UserSignUp = () => {
     const [error, setError] = useState<ErrorMessage | null>(null);
     const {setUserCredentials} = useStore();
     const navigate = useNavigate();
-    const [tokenRes, setTokenRes] = useState<TokenResponse | null>(null);
+
 
     const signUpHandler = async (User: any) => {
         const response = await axiosInstance.post("/api/admin/signup", User);

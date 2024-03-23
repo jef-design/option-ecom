@@ -1,7 +1,7 @@
 import useStore from "../../services/useStore";
 import {Link} from "react-router-dom";
 import {ShoppingBagIcon, UserCircleIcon} from "@heroicons/react/24/outline";
-import {useQuery, QueryClient, useQueryClient} from "@tanstack/react-query";
+import {useQuery, useQueryClient} from "@tanstack/react-query";
 import axiosInstance from "../../services/axiosInstance";
 import {googleLogout} from "@react-oauth/google";
 const Header = () => {

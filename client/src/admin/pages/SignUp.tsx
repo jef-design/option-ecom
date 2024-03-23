@@ -5,7 +5,6 @@ import axiosInstance from '../../services/axiosInstance'
 import { EyeSlashIcon, EyeIcon } from "@heroicons/react/24/outline";
 import {TailSpin} from 'react-loader-spinner'
 import { AxiosError } from 'axios';
-import useStore from '../../services/useStore';
 import Header from '../layout/Header';
 
 type ErrorResponse = AxiosError<any>;

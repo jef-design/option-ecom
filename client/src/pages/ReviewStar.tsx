@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {SyntheticEvent, useState} from "react";
 import Header from "../admin/layout/Header";
 import Rating from "@mui/material/Rating";
 import {useMutation, useQuery} from "@tanstack/react-query";
@@ -60,7 +60,8 @@ const ReviewStar = () => {
                                     <Rating
                                         name="simple-controlled"
                                         value={starRating}
-                                        onChange={(event, newValue) => {
+                                        onChange={(event: SyntheticEvent, newValue) => {
+                                            event.preventDefault()
                                             setStarRating(newValue);
                                         }}
                                     />
